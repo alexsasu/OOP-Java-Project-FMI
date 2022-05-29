@@ -17,10 +17,10 @@ public class WriteService {
         return INSTANCE;
     }
 
-    public void writeToFile(String fileName, String objectInfo){
+    public void writeToFile(String fileName, String info){
         try {
             FileWriter fileWriter = new FileWriter(String.valueOf(Paths.get(fileName)), true);
-            fileWriter.write(objectInfo + "\n");
+            fileWriter.write(info + "\n");
             fileWriter.close();
         } catch (IOException e) {
             System.out.println(e.getClass() + " " + e.getMessage());

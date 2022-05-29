@@ -1,6 +1,8 @@
 import model.*;
 import service.*;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -26,9 +28,9 @@ public class Main {
         UserService userService = UserService.getInstance();
         ServiceService serviceService = ServiceService.getInstance();
         BuyerUtilityService buyerUtilityService = BuyerUtilityService.getInstance();
-        LanguageService languageService = LanguageService.getInstance();
         JobService jobService = JobService.getInstance();
         CityService cityService = CityService.getInstance();
+        ServiceAvailabilityService serviceAvailabilityService = ServiceAvailabilityService.getInstance();
 
         Boolean continueNavigation = true;
         Scanner sc = new Scanner(System.in);
@@ -37,15 +39,16 @@ public class Main {
 
         while (continueNavigation) {
             System.out.println("What do you wish to do?\n");
-            System.out.println("Import data from file - 1");
-            System.out.println("Export data to file - 2");
+            System.out.println("Get data from report - 1");
+            System.out.println("Export data to report - 2");
             System.out.println("Add new entry - 3");
             System.out.println("Get entry by ID and print it to screen - 4");
             System.out.println("Get entry by name and print it to screen - 5");
             System.out.println("Print all entries of certain type to screen - 6");
-            System.out.println("Remove entry - 7");
-            System.out.println("Class specific operations - 8");
-            System.out.println("Exit menu - 9\n");
+            System.out.println("Update entry by ID - 7");
+            System.out.println("Remove entry - 8");
+            System.out.println("Class specific operations - 9");
+            System.out.println("EXIT MENU - 10\n");
 
             System.out.print("Choose option: ");
             Integer option = Integer.parseInt(sc.nextLine());
@@ -56,12 +59,12 @@ public class Main {
                     while (true) {
                         System.out.println("Go back - 0\n");
 
-                        System.out.println("Import data from \"Users.csv\" - 1");
-                        System.out.println("Import data from \"Services.csv\" - 2");
-                        System.out.println("Import data from \"BuyerUtilities.csv\" - 3");
-                        System.out.println("Import data from \"Languages.csv\" - 4");
-                        System.out.println("Import data from \"Jobs.csv\" - 5");
-                        System.out.println("Import data from \"Cities.csv\" - 6\n");
+                        System.out.println("Get data from \"Users.csv\" - 1");
+                        System.out.println("Get data from \"Services.csv\" - 2");
+                        System.out.println("Get data from \"BuyersUtilities.csv\" - 3");
+                        System.out.println("Get data from \"Jobs.csv\" - 4");
+                        System.out.println("Get data from \"Cities.csv\" - 5");
+                        System.out.println("Get data from \"ServicesAvailabilities.csv\" - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -77,67 +80,55 @@ public class Main {
                             if (option != 0) {
                                 switch (option) {
                                     case 1: {
-                                        userService.readUsersFromFile();
+                                        userService.getReportInfo();
 
-                                        System.out.println("Successfully imported users!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch(InterruptedException e) { System.out.println(e.getClass() + " " + e.getMessage()); }
+                                        System.out.println();
+                                        pressEnterToContinue();
                                         clrscr();
 
                                         break;
                                     }
                                     case 2: {
-                                        serviceService.readServicesFromFile();
+                                        serviceService.getReportInfo();
 
-                                        System.out.println("Successfully imported services!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch(InterruptedException e) { System.out.println(e.getClass() + " " + e.getMessage()); }
+                                        System.out.println();
+                                        pressEnterToContinue();
                                         clrscr();
 
                                         break;
                                     }
                                     case 3: {
-                                        buyerUtilityService.readBuyerUtilitiesFromFile();
+                                        buyerUtilityService.getReportInfo();
 
-                                        System.out.println("Successfully imported buyer utilities!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch(InterruptedException e) { System.out.println(e.getClass() + " " + e.getMessage()); }
+                                        System.out.println();
+                                        pressEnterToContinue();
                                         clrscr();
 
                                         break;
                                     }
                                     case 4: {
-                                        languageService.readLanguagesFromFile();
+                                        jobService.getReportInfo();
 
-                                        System.out.println("Successfully imported languages!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch(InterruptedException e) { System.out.println(e.getClass() + " " + e.getMessage()); }
+                                        System.out.println();
+                                        pressEnterToContinue();
                                         clrscr();
 
                                         break;
                                     }
                                     case 5: {
-                                        jobService.readJobsFromFile();
+                                        cityService.getReportInfo();
 
-                                        System.out.println("Successfully imported jobs!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch(InterruptedException e) { System.out.println(e.getClass() + " " + e.getMessage()); }
+                                        System.out.println();
+                                        pressEnterToContinue();
                                         clrscr();
 
                                         break;
                                     }
                                     case 6: {
-                                        cityService.readCitiesFromFile();
+                                        serviceAvailabilityService.getReportInfo();
 
-                                        System.out.println("Successfully imported cities!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch(InterruptedException e) { System.out.println(e.getClass() + " " + e.getMessage()); }
+                                        System.out.println();
+                                        pressEnterToContinue();
                                         clrscr();
 
                                         break;
@@ -157,10 +148,10 @@ public class Main {
 
                         System.out.println("Export data to \"Users.csv\" - 1");
                         System.out.println("Export data to \"Services.csv\" - 2");
-                        System.out.println("Export data to \"BuyerUtilities.csv\" - 3");
-                        System.out.println("Export data to \"Languages.csv\" - 4");
-                        System.out.println("Export data to \"Jobs.csv\" - 5");
-                        System.out.println("Export data to \"Cities.csv\" - 6\n");
+                        System.out.println("Export data to \"BuyersUtilities.csv\" - 3");
+                        System.out.println("Export data to \"Jobs.csv\" - 4");
+                        System.out.println("Export data to \"Cities.csv\" - 5");
+                        System.out.println("Export data to \"ServicesAvailabilities.csv\" - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -178,7 +169,7 @@ public class Main {
                             if (option != 0) {
                                 switch (option) {
                                     case 1: {
-                                        userService.writeUsersToFile();
+                                        userService.writeToReport();
 
                                         System.out.println("Successfully exported users!");
                                         try {
@@ -191,7 +182,7 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        serviceService.writeServicesToFile();
+                                        serviceService.writeToReport();
 
                                         System.out.println("Successfully exported services!");
                                         try {
@@ -204,9 +195,9 @@ public class Main {
                                         break;
                                     }
                                     case 3: {
-                                        buyerUtilityService.writeBuyerUtilitiesToFile();
+                                        buyerUtilityService.writeToReport();
 
-                                        System.out.println("Successfully exported buyer utilities!");
+                                        System.out.println("Successfully exported buyers utilities!");
                                         try {
                                             Thread.sleep(2000);
                                         } catch (InterruptedException e) {
@@ -217,20 +208,7 @@ public class Main {
                                         break;
                                     }
                                     case 4: {
-                                        languageService.writeLanguagesToFile();
-
-                                        System.out.println("Successfully exported languages!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch (InterruptedException e) {
-                                            System.out.println(e.getClass() + " " + e.getMessage());
-                                        }
-                                        clrscr();
-
-                                        break;
-                                    }
-                                    case 5: {
-                                        jobService.writeJobsToFile();
+                                        jobService.writeToReport();
 
                                         System.out.println("Successfully exported jobs!");
                                         try {
@@ -242,10 +220,23 @@ public class Main {
 
                                         break;
                                     }
-                                    case 6: {
-                                        cityService.writeCitiesToFile();
+                                    case 5: {
+                                        cityService.writeToReport();
 
                                         System.out.println("Successfully exported cities!");
+                                        try {
+                                            Thread.sleep(2000);
+                                        } catch (InterruptedException e) {
+                                            System.out.println(e.getClass() + " " + e.getMessage());
+                                        }
+                                        clrscr();
+
+                                        break;
+                                    }
+                                    case 6: {
+                                        serviceAvailabilityService.writeToReport();
+
+                                        System.out.println("Successfully exported services availabilities!");
                                         try {
                                             Thread.sleep(2000);
                                         } catch (InterruptedException e) {
@@ -270,10 +261,10 @@ public class Main {
 
                         System.out.println("Add new user - 1");
                         System.out.println("Add new service - 2");
-                        System.out.println("Add new buyer utility - 3");
-                        System.out.println("Add new language - 4");
-                        System.out.println("Add new job - 5");
-                        System.out.println("Add new city - 6\n");
+                        System.out.println("Add new buyer utility info - 3");
+                        System.out.println("Add new job - 4");
+                        System.out.println("Add new city - 5");
+                        System.out.println("Add new service availability - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -290,6 +281,7 @@ public class Main {
                         } else {
                             if (option != 0) {
                                 Scanner scInfo = new Scanner(System.in);
+                                Scanner scNumberInfo = new Scanner(System.in);
 
                                 switch (option) {
                                     case 1: {
@@ -379,12 +371,18 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
+                                        System.out.print("Seller Id: ");
+                                        Integer idSeller = scNumberInfo.nextInt();
+                                        System.out.print("Job Id: ");
+                                        Integer idJob = scNumberInfo.nextInt();
                                         System.out.print("Description: ");
                                         String description = scInfo.nextLine();
+                                        System.out.print("Price: ");
+                                        Double price = scNumberInfo.nextDouble();
                                         System.out.print("Work schedule: ");
                                         String workSchedule = scInfo.nextLine();
 
-                                        serviceService.addService(new Service(null, description, workSchedule));
+                                        serviceService.addService(new Service(idSeller, idJob, description, price, workSchedule));
 
                                         System.out.println();
                                         System.out.println("Service successfully added!");
@@ -398,40 +396,86 @@ public class Main {
                                         break;
                                     }
                                     case 3: {
-                                        System.out.print("Type: ");
-                                        String type = scInfo.nextLine();
+                                        while (true) {
+                                            System.out.println("Go back - 0\n");
 
-                                        buyerUtilityService.addBuyerUtility(new BuyerUtility(type, null));
+                                            System.out.println("Add new buyer cart info - 1");
+                                            System.out.println("Add new buyer history info - 2\n");
 
-                                        System.out.println();
-                                        System.out.println("Buyer utility successfully added!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch (InterruptedException e) {
-                                            System.out.println(e.getClass() + " " + e.getMessage());
+                                            System.out.print("Choose option: ");
+                                            option = Integer.parseInt(sc.nextLine());
+                                            clrscr();
+
+                                            if ((option < 0) || (option > 2)) {
+                                                System.out.println("Wrong input!");
+                                                try {
+                                                    Thread.sleep(2000);
+                                                } catch (InterruptedException e) {
+                                                    System.out.println(e.getClass() + " " + e.getMessage());
+                                                }
+                                                clrscr();
+                                            }
+                                            else if (option != 0) {
+                                                switch (option) {
+                                                    case 1: {
+                                                        System.out.print("Utility id: ");
+                                                        Integer idUtility = scNumberInfo.nextInt();
+                                                        System.out.print("Service id: ");
+                                                        Integer idService = scNumberInfo.nextInt();
+                                                        System.out.print("Buyer id: ");
+                                                        Integer idBuyer = scNumberInfo.nextInt();
+                                                        String type = "cart";
+                                                        java.util.Date utilDate = new java.util.Date();
+                                                        java.sql.Date serviceAddedDate = new Date(utilDate.getTime());
+
+                                                        buyerUtilityService.addBuyerUtilityInfo(new BuyerUtility(idUtility, idService, idBuyer, type, serviceAddedDate));
+
+                                                        System.out.println();
+                                                        System.out.println("Buyer cart info successfully added!");
+                                                        try {
+                                                            Thread.sleep(2000);
+                                                        } catch (InterruptedException e) {
+                                                            System.out.println(e.getClass() + " " + e.getMessage());
+                                                        }
+                                                        clrscr();
+
+                                                        break;
+                                                    }
+                                                    case 2: {
+                                                        System.out.print("Utility id: ");
+                                                        Integer idUtility = scNumberInfo.nextInt();
+                                                        System.out.print("Service id: ");
+                                                        Integer idService = scNumberInfo.nextInt();
+                                                        System.out.print("Buyer id: ");
+                                                        Integer idBuyer = scNumberInfo.nextInt();
+                                                        String type = "history";
+                                                        java.util.Date utilDate = new java.util.Date();
+                                                        java.sql.Date serviceAddedDate = new Date(utilDate.getTime());
+                                                        System.out.print("Feedback: ");
+                                                        String feedback = scInfo.nextLine();
+
+                                                        buyerUtilityService.addBuyerUtilityInfo(new BuyerHistory(idUtility, idService, idBuyer, type, serviceAddedDate, feedback));
+
+                                                        System.out.println();
+                                                        System.out.println("Buyer history info successfully added!");
+                                                        try {
+                                                            Thread.sleep(2000);
+                                                        } catch (InterruptedException e) {
+                                                            System.out.println(e.getClass() + " " + e.getMessage());
+                                                        }
+                                                        clrscr();
+
+                                                        break;
+                                                    }
+                                                }
+                                            } else {
+                                                break;
+                                            }
                                         }
-                                        clrscr();
 
                                         break;
                                     }
                                     case 4: {
-                                        System.out.print("Language name: ");
-                                        String name = scInfo.nextLine();
-
-                                        languageService.addLanguage(new Language(name));
-
-                                        System.out.println();
-                                        System.out.println("Language successfully added!");
-                                        try {
-                                            Thread.sleep(2000);
-                                        } catch (InterruptedException e) {
-                                            System.out.println(e.getClass() + " " + e.getMessage());
-                                        }
-                                        clrscr();
-
-                                        break;
-                                    }
-                                    case 5: {
                                         System.out.print("Job name: ");
                                         String name = scInfo.nextLine();
 
@@ -448,7 +492,7 @@ public class Main {
 
                                         break;
                                     }
-                                    case 6: {
+                                    case 5: {
                                         System.out.print("City name: ");
                                         String name = scInfo.nextLine();
 
@@ -456,6 +500,25 @@ public class Main {
 
                                         System.out.println();
                                         System.out.println("City successfully added!");
+                                        try {
+                                            Thread.sleep(2000);
+                                        } catch (InterruptedException e) {
+                                            System.out.println(e.getClass() + " " + e.getMessage());
+                                        }
+                                        clrscr();
+
+                                        break;
+                                    }
+                                    case 6: {
+                                        System.out.print("Service id: ");
+                                        Integer idService = scNumberInfo.nextInt();
+                                        System.out.print("City id: ");
+                                        Integer idCity = scNumberInfo.nextInt();
+
+                                        serviceAvailabilityService.addServiceAvailability(new ServiceAvailability(idService, idCity));
+
+                                        System.out.println();
+                                        System.out.println("Service availability successfully added!");
                                         try {
                                             Thread.sleep(2000);
                                         } catch (InterruptedException e) {
@@ -484,9 +547,9 @@ public class Main {
                         System.out.println("Print user by id to screen - 1");
                         System.out.println("Print service by id to screen - 2");
                         System.out.println("Print buyer utility by id to screen - 3");
-                        System.out.println("Print language by id to screen - 4");
-                        System.out.println("Print job by id to screen - 5");
-                        System.out.println("Print city by id to screen - 6\n");
+                        System.out.println("Print job by id to screen - 4");
+                        System.out.println("Print city by id to screen - 5");
+                        System.out.println("Print service availability by service id to screen - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -504,7 +567,7 @@ public class Main {
                             if (option != 0) {
                                 switch (option) {
                                     case 1: {
-                                        List<User> users = userService.getUsers();
+                                        List<User> users = userService.getAllUsers();
 
                                         if (!users.isEmpty()) {
                                             while (true) {
@@ -542,11 +605,6 @@ public class Main {
                                             System.out.println(userService.getUserById(id) + "\n");
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no users to print!");
@@ -561,7 +619,7 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        List<Service> services = serviceService.getServices();
+                                        List<Service> services = serviceService.getAllServices();
 
                                         if (!services.isEmpty()) {
                                             while (true) {
@@ -599,11 +657,6 @@ public class Main {
                                             System.out.println(serviceService.getServiceById(id) + "\n");
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no services to print!");
@@ -618,14 +671,14 @@ public class Main {
                                         break;
                                     }
                                     case 3: {
-                                        List<BuyerUtility> buyerUtilities = buyerUtilityService.getBuyerUtilities();
+                                        List<BuyerUtility> buyersUtilities = buyerUtilityService.getAllBuyersUtilities();
 
-                                        if (!buyerUtilities.isEmpty()) {
+                                        if (!buyersUtilities.isEmpty()) {
                                             while (true) {
                                                 System.out.println("Which buyer utility do you wish to print?\n");
 
-                                                List<Integer> utilityIds = buyerUtilities.stream().
-                                                        map(BuyerUtility::getIdUtility).toList();
+                                                List<Integer> utilityIds = buyersUtilities.stream().
+                                                        map(BuyerUtility::getIdUtility).distinct().toList();
                                                 List<String> utilityIdsToStrings = utilityIds.stream().
                                                         map(String::valueOf).toList();
                                                 String stringOfAllUtilityIds = utilityIdsToStrings.stream().
@@ -653,14 +706,11 @@ public class Main {
                                                 }
                                             }
 
-                                            System.out.println(buyerUtilityService.getBuyerUtilityById(id) + "\n");
+                                            List<BuyerUtility> buyerUtility = buyerUtilityService.getBuyerUtilityById(id);
+                                            buyerUtility.forEach( (buyerUtilityInfo) -> { System.out.println(buyerUtilityInfo); } );
+                                            System.out.println();
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no buyer utilities to print!");
@@ -675,64 +725,7 @@ public class Main {
                                         break;
                                     }
                                     case 4: {
-                                        List<Language> languages = languageService.getLanguages();
-
-                                        if (!languages.isEmpty()) {
-                                            while (true) {
-                                                System.out.println("Which language do you wish to print?\n");
-
-                                                List<Integer> languageIds = languages.stream().
-                                                        map(Language::getIdLanguage).toList();
-                                                List<String> languageIdsToStrings = languageIds.stream().
-                                                        map(String::valueOf).toList();
-                                                String stringOfAllLanguageIds = languageIdsToStrings.stream().
-                                                        map(String::valueOf).
-                                                        collect(Collectors.joining(", "));
-
-                                                System.out.println("Insert one of the following numbers (ids indicating their associated languages):");
-                                                System.out.println(stringOfAllLanguageIds + "\n");
-
-                                                System.out.print("Insert id: ");
-                                                id = Integer.parseInt(scId.nextLine());
-
-                                                System.out.println();
-
-                                                if (!languageIds.contains(id)) {
-                                                    System.out.println("Wrong input!");
-                                                    try {
-                                                        Thread.sleep(2000);
-                                                    } catch (InterruptedException e) {
-                                                        System.out.println(e.getClass() + " " + e.getMessage());
-                                                    }
-                                                    clrscr();
-                                                } else {
-                                                    break;
-                                                }
-                                            }
-
-                                            System.out.println(languageService.getLanguageById(id) + "\n");
-                                            pressEnterToContinue();
-
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        } else {
-                                            System.out.println("There are no languages to print!");
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        }
-
-                                        break;
-                                    }
-                                    case 5: {
-                                        List<Job> jobs = jobService.getJobs();
+                                        List<Job> jobs = jobService.getAllJobs();
 
                                         if (!jobs.isEmpty()) {
                                             while (true) {
@@ -770,11 +763,6 @@ public class Main {
                                             System.out.println(jobService.getJobById(id) + "\n");
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no jobs to print!");
@@ -788,8 +776,8 @@ public class Main {
 
                                         break;
                                     }
-                                    case 6: {
-                                        List<City> cities = cityService.getCities();
+                                    case 5: {
+                                        List<City> cities = cityService.getAllCities();
 
                                         if (!cities.isEmpty()) {
                                             while (true) {
@@ -827,14 +815,63 @@ public class Main {
                                             System.out.println(cityService.getCityById(id) + "\n");
                                             pressEnterToContinue();
 
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no cities to print!");
                                             try {
                                                 Thread.sleep(2000);
                                             } catch (InterruptedException e) {
                                                 System.out.println(e.getClass() + " " + e.getMessage());
                                             }
                                             clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 6: {
+                                        List<ServiceAvailability> servicesAvailabilities = serviceAvailabilityService.getAllServicesAvailabilities();
+
+                                        if (!servicesAvailabilities.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which service's availabilities do you wish to print?\n");
+
+                                                List<Integer> serviceAvailabilitiesServiceIds = servicesAvailabilities.stream().
+                                                        map(ServiceAvailability::getIdService).distinct().toList();
+                                                List<String> serviceAvailabilitiesServiceIdsToStrings = serviceAvailabilitiesServiceIds.stream().
+                                                        map(String::valueOf).toList();
+                                                String stringOfAllServiceAvailabilityServiceIds = serviceAvailabilitiesServiceIdsToStrings.stream().
+                                                        map(String::valueOf).
+                                                        collect(Collectors.joining(", "));
+
+                                                System.out.println("Insert one of the following numbers (service ids indicating their associated service availabilities):");
+                                                System.out.println(stringOfAllServiceAvailabilityServiceIds + "\n");
+
+                                                System.out.print("Insert service id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!serviceAvailabilitiesServiceIds.contains(id)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            List<ServiceAvailability> serviceAvailabilities = serviceAvailabilityService.getServiceAvailabilitiesByServiceId(id);
+                                            serviceAvailabilities.forEach( (serviceAvailability) -> { System.out.println(serviceAvailability); } );
+                                            System.out.println();
+                                            pressEnterToContinue();
+
+                                            clrscr();
                                         } else {
-                                            System.out.println("There are no cities to print!");
+                                            System.out.println("There are no service availabilities to print!");
                                             try {
                                                 Thread.sleep(2000);
                                             } catch (InterruptedException e) {
@@ -862,15 +899,14 @@ public class Main {
                         System.out.println("Go back - 0\n");
 
                         System.out.println("Print user by username to screen - 1");
-                        System.out.println("Print language by name to screen - 2");
-                        System.out.println("Print job by name to screen - 3");
-                        System.out.println("Print city by name to screen - 4\n");
+                        System.out.println("Print job by name to screen - 2");
+                        System.out.println("Print city by name to screen - 3\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
                         clrscr();
 
-                        if ((option < 0) || (option > 4)) {
+                        if ((option < 0) || (option > 3)) {
                             System.out.println("Wrong input!");
                             try {
                                 Thread.sleep(2000);
@@ -882,7 +918,7 @@ public class Main {
                             if (option != 0) {
                                 switch (option) {
                                     case 1: {
-                                        List<User> users = userService.getUsers();
+                                        List<User> users = userService.getAllUsers();
 
                                         if (!users.isEmpty()) {
                                             while (true) {
@@ -918,11 +954,6 @@ public class Main {
                                             System.out.println(userService.getUserByUsername(name) + "\n");
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no users to print!");
@@ -937,62 +968,7 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        List<Language> languages = languageService.getLanguages();
-
-                                        if (!languages.isEmpty()) {
-                                            while (true) {
-                                                System.out.println("Which language do you wish to print?\n");
-
-                                                List<String> languageNames = languages.stream().
-                                                        map(Language::getName).toList();
-                                                String stringOfAllLanguageNames = languageNames.stream().
-                                                        map(String::valueOf).
-                                                        collect(Collectors.joining(", "));
-
-                                                System.out.println("Insert one of the following language names (language names indicating their associated languages):");
-                                                System.out.println(stringOfAllLanguageNames + "\n");
-
-                                                System.out.print("Insert language name: ");
-                                                name = scName.nextLine();
-
-                                                System.out.println();
-
-                                                if (!languageNames.contains(name)) {
-                                                    System.out.println("Wrong input!");
-                                                    try {
-                                                        Thread.sleep(2000);
-                                                    } catch (InterruptedException e) {
-                                                        System.out.println(e.getClass() + " " + e.getMessage());
-                                                    }
-                                                    clrscr();
-                                                } else {
-                                                    break;
-                                                }
-                                            }
-
-                                            System.out.println(languageService.getLanguageByName(name) + "\n");
-                                            pressEnterToContinue();
-
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        } else {
-                                            System.out.println("There are no languages to print!");
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        }
-
-                                        break;
-                                    }
-                                    case 3: {
-                                        List<Job> jobs = jobService.getJobs();
+                                        List<Job> jobs = jobService.getAllJobs();
 
                                         if (!jobs.isEmpty()) {
                                             while (true) {
@@ -1028,11 +1004,6 @@ public class Main {
                                             System.out.println(jobService.getJobByName(name) + "\n");
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no jobs to print!");
@@ -1046,8 +1017,8 @@ public class Main {
 
                                         break;
                                     }
-                                    case 4: {
-                                        List<City> cities = cityService.getCities();
+                                    case 3: {
+                                        List<City> cities = cityService.getAllCities();
 
                                         if (!cities.isEmpty()) {
                                             while (true) {
@@ -1083,11 +1054,6 @@ public class Main {
                                             System.out.println(cityService.getCityByName(name) + "\n");
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no cities to print!");
@@ -1117,9 +1083,9 @@ public class Main {
                         System.out.println("Print all users to screen - 1");
                         System.out.println("Print all services to screen - 2");
                         System.out.println("Print all buyer utilities to screen - 3");
-                        System.out.println("Print all languages to screen - 4");
-                        System.out.println("Print all jobs to screen - 5");
-                        System.out.println("Print all cities to screen - 6\n");
+                        System.out.println("Print all jobs to screen - 4");
+                        System.out.println("Print all cities to screen - 5");
+                        System.out.println("Print all service availabilities to screen - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -1137,23 +1103,16 @@ public class Main {
                             if (option != 0) {
                                 switch (option) {
                                     case 1: {
-                                        List<User> users = userService.getUsers();
+                                        List<User> users = userService.getAllUsers();
 
                                         if (!users.isEmpty()) {
                                             System.out.println("All of the stored users:\n");
 
-                                            for (User user : users) {
-                                                System.out.println(user);
-                                            }
+                                            users.forEach( (user) -> { System.out.println(user); } );
 
                                             System.out.println();
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no users to print!");
@@ -1168,23 +1127,16 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        List<Service> services = serviceService.getServices();
+                                        List<Service> services = serviceService.getAllServices();
 
                                         if (!services.isEmpty()) {
                                             System.out.println("All of the stored services:\n");
 
-                                            for (Service service : services) {
-                                                System.out.println(service);
-                                            }
+                                            services.forEach( (service) -> { System.out.println(service); } );
 
                                             System.out.println();
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no services to print!");
@@ -1199,23 +1151,16 @@ public class Main {
                                         break;
                                     }
                                     case 3: {
-                                        List<BuyerUtility> buyerUtilities = buyerUtilityService.getBuyerUtilities();
+                                        List<BuyerUtility> buyersUtilities = buyerUtilityService.getAllBuyersUtilities();
 
-                                        if (!buyerUtilities.isEmpty()) {
+                                        if (!buyersUtilities.isEmpty()) {
                                             System.out.println("All of the stored buyer utilities:\n");
 
-                                            for (BuyerUtility buyerUtility : buyerUtilities) {
-                                                System.out.println(buyerUtility);
-                                            }
+                                            buyersUtilities.forEach( (buyerUtilityInfo) -> { System.out.println(buyerUtilityInfo); } );
 
                                             System.out.println();
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no buyer utilities to print!");
@@ -1230,54 +1175,16 @@ public class Main {
                                         break;
                                     }
                                     case 4: {
-                                        List<Language> languages = languageService.getLanguages();
-
-                                        if (!languages.isEmpty()) {
-                                            System.out.println("All of the stored languages:\n");
-
-                                            for (Language language : languages) {
-                                                System.out.println(language);
-                                            }
-
-                                            System.out.println();
-                                            pressEnterToContinue();
-
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        } else {
-                                            System.out.println("There are no languages to print!");
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        }
-
-                                        break;
-                                    }
-                                    case 5: {
-                                        List<Job> jobs = jobService.getJobs();
+                                        List<Job> jobs = jobService.getAllJobs();
 
                                         if (!jobs.isEmpty()) {
                                             System.out.println("All of the stored jobs:\n");
 
-                                            for (Job job : jobs) {
-                                                System.out.println(job);
-                                            }
+                                            jobs.forEach( (job) -> { System.out.println(job); } );
 
                                             System.out.println();
                                             pressEnterToContinue();
 
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
                                             clrscr();
                                         } else {
                                             System.out.println("There are no jobs to print!");
@@ -1291,27 +1198,44 @@ public class Main {
 
                                         break;
                                     }
-                                    case 6: {
-                                        List<City> cities = cityService.getCities();
+                                    case 5: {
+                                        List<City> cities = cityService.getAllCities();
 
                                         if (!cities.isEmpty()) {
                                             System.out.println("All of the stored cities:\n");
 
-                                            for (City city : cities) {
-                                                System.out.println(city);
-                                            }
+                                            cities.forEach( (city) -> { System.out.println(city); } );
 
                                             System.out.println();
                                             pressEnterToContinue();
 
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no cities to print!");
                                             try {
                                                 Thread.sleep(2000);
                                             } catch (InterruptedException e) {
                                                 System.out.println(e.getClass() + " " + e.getMessage());
                                             }
                                             clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 6: {
+                                        List<ServiceAvailability> servicesAvailabilities = serviceAvailabilityService.getAllServicesAvailabilities();
+
+                                        if (!servicesAvailabilities.isEmpty()) {
+                                            System.out.println("All of the stored service availabilities:\n");
+
+                                            servicesAvailabilities.forEach( (serviceAvailability) -> { System.out.println(serviceAvailability); } );
+
+                                            System.out.println();
+                                            pressEnterToContinue();
+
+                                            clrscr();
                                         } else {
-                                            System.out.println("There are no cities to print!");
+                                            System.out.println("There are no service availabilities to print!");
                                             try {
                                                 Thread.sleep(2000);
                                             } catch (InterruptedException e) {
@@ -1334,16 +1258,21 @@ public class Main {
                 case 7: {
                     Scanner scId = new Scanner(System.in);
                     Integer id;
+                    Integer id2;
+                    Scanner scFieldName = new Scanner(System.in);
+                    String fieldName;
+                    Scanner scFieldValue = new Scanner(System.in);
+                    String fieldValue;
 
                     while (true) {
                         System.out.println("Go back - 0\n");
 
-                        System.out.println("Remove user - 1");
-                        System.out.println("Remove service - 2");
-                        System.out.println("Remove buyer utility - 3");
-                        System.out.println("Remove language - 4");
-                        System.out.println("Remove job - 5");
-                        System.out.println("Remove city - 6\n");
+                        System.out.println("Update user - 1");
+                        System.out.println("Update service - 2");
+                        System.out.println("Update buyer utility - 3");
+                        System.out.println("Update job - 4");
+                        System.out.println("Update city - 5");
+                        System.out.println("Update service availability - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -1361,7 +1290,621 @@ public class Main {
                             if (option != 0) {
                                 switch (option) {
                                     case 1: {
-                                        List<User> users = userService.getUsers();
+                                        List<User> users = userService.getAllUsers();
+
+                                        if (!users.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which user do you wish to update?\n");
+
+                                                List<Integer> userIds = users.stream().
+                                                        map(User::getIdUser).toList();
+                                                List<String> userIdsToStrings = userIds.stream().
+                                                        map(String::valueOf).toList();
+                                                String stringOfAllUserIds = userIdsToStrings.stream().
+                                                        map(String::valueOf).
+                                                        collect(Collectors.joining(", "));
+
+                                                System.out.println("Insert one of the following numbers (ids indicating their associated users):");
+                                                System.out.println(stringOfAllUserIds + "\n");
+
+                                                System.out.print("Insert id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!userIds.contains(id)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            List<String> updatableUserFields = new ArrayList<String>();
+                                            updatableUserFields.add("type");
+                                            updatableUserFields.add("firstName");
+                                            updatableUserFields.add("lastName");
+                                            updatableUserFields.add("username");
+                                            updatableUserFields.add("email");
+                                            updatableUserFields.add("password");
+                                            if (userService.getUserById(id).getType().equalsIgnoreCase("seller")) {
+                                                updatableUserFields.add("description");
+                                                updatableUserFields.add("phoneNumber");
+                                            }
+
+                                            while (true) {
+                                                System.out.println("Which field do you wish to update?\n");
+
+                                                String stringOfAllUserFields = String.join(", ", updatableUserFields);
+
+                                                System.out.println("Insert one of the following field names:");
+                                                System.out.println(stringOfAllUserFields + "\n");
+
+                                                System.out.print("Insert field name: ");
+                                                fieldName = scFieldName.nextLine();
+
+                                                System.out.println();
+
+                                                if (!updatableUserFields.contains(fieldName)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            System.out.print("Insert value for \"" + fieldName + "\" field: ");
+                                            fieldValue = scFieldValue.nextLine();
+
+                                            userService.updateUserById(id, fieldName, fieldValue);
+                                            System.out.println();
+
+                                            System.out.println("User successfully updated!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no users to update!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 2: {
+                                        List<Service> services = serviceService.getAllServices();
+
+                                        if (!services.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which service do you wish to update?\n");
+
+                                                List<Integer> serviceIds = services.stream().
+                                                        map(Service::getIdService).toList();
+                                                List<String> serviceIdsToStrings = serviceIds.stream().
+                                                        map(String::valueOf).toList();
+                                                String stringOfAllServiceIds = serviceIdsToStrings.stream().
+                                                        map(String::valueOf).
+                                                        collect(Collectors.joining(", "));
+
+                                                System.out.println("Insert one of the following numbers (ids indicating their associated services):");
+                                                System.out.println(stringOfAllServiceIds + "\n");
+
+                                                System.out.print("Insert id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!serviceIds.contains(id)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            List<String> updatableServiceFields = new ArrayList<String>();
+                                            updatableServiceFields.add("idSeller");
+                                            updatableServiceFields.add("idJob");
+                                            updatableServiceFields.add("description");
+                                            updatableServiceFields.add("price");
+                                            updatableServiceFields.add("workSchedule");
+
+                                            while (true) {
+                                                System.out.println("Which field do you wish to update?\n");
+
+                                                String stringOfAllServiceFields = String.join(", ", updatableServiceFields);
+
+                                                System.out.println("Insert one of the following field names:");
+                                                System.out.println(stringOfAllServiceFields + "\n");
+
+                                                System.out.print("Insert field name: ");
+                                                fieldName = scFieldName.nextLine();
+
+                                                System.out.println();
+
+                                                if (!updatableServiceFields.contains(fieldName)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            System.out.print("Insert value for \"" + fieldName + "\" field: ");
+                                            fieldValue = scFieldValue.nextLine();
+
+                                            serviceService.updateServiceById(id, fieldName, fieldValue);
+                                            System.out.println();
+
+                                            System.out.println("Service successfully updated!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no services to update!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 3: {
+                                        List<BuyerUtility> buyersUtilities = buyerUtilityService.getAllBuyersUtilities();
+
+                                        if (!buyersUtilities.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which buyer utility do you wish to update?\n");
+
+                                                List<Integer> utilityIds = buyersUtilities.stream().
+                                                        map(BuyerUtility::getIdUtility).distinct().toList();
+                                                List<String> utilityIdsToStrings = utilityIds.stream().
+                                                        map(String::valueOf).toList();
+                                                String stringOfAllUtilityIds = utilityIdsToStrings.stream().
+                                                        map(String::valueOf).
+                                                        collect(Collectors.joining(", "));
+
+                                                System.out.println("Insert one of the following numbers (ids indicating their associated buyer utilities):");
+                                                System.out.println(stringOfAllUtilityIds + "\n");
+
+                                                System.out.print("Insert id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!utilityIds.contains(id)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            List<String> updatableBuyerUtilityFields = new ArrayList<String>();
+                                            updatableBuyerUtilityFields.add("idService");
+                                            updatableBuyerUtilityFields.add("idBuyer");
+                                            updatableBuyerUtilityFields.add("type");
+                                            updatableBuyerUtilityFields.add("serviceAddedDate");
+                                            if (buyerUtilityService.getBuyerUtilityById(id).get(0).getType().equalsIgnoreCase("history")) {
+                                                updatableBuyerUtilityFields.add("feedback");
+                                            }
+
+                                            while (true) {
+                                                System.out.println("Which field do you wish to update?\n");
+
+                                                String stringOfAllBuyerUtilityFields = String.join(", ", updatableBuyerUtilityFields);
+
+                                                System.out.println("Insert one of the following field names:");
+                                                System.out.println(stringOfAllBuyerUtilityFields + "\n");
+
+                                                System.out.print("Insert field name: ");
+                                                fieldName = scFieldName.nextLine();
+
+                                                System.out.println();
+
+                                                if (!updatableBuyerUtilityFields.contains(fieldName)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            System.out.print("Insert value for \"" + fieldName + "\" field: ");
+                                            fieldValue = scFieldValue.nextLine();
+
+                                            buyerUtilityService.updateBuyerUtilityById(id, fieldName, fieldValue);
+                                            System.out.println();
+
+                                            System.out.println("Buyer utility successfully updated!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no buyer utilities to update!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 4: {
+                                        List<Job> jobs = jobService.getAllJobs();
+
+                                        if (!jobs.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which job do you wish to update?\n");
+
+                                                List<Integer> jobIds = jobs.stream().
+                                                        map(Job::getIdJob).toList();
+                                                List<String> jobIdsToStrings = jobIds.stream().
+                                                        map(String::valueOf).toList();
+                                                String stringOfAllJobIds = jobIdsToStrings.stream().
+                                                        map(String::valueOf).
+                                                        collect(Collectors.joining(", "));
+
+                                                System.out.println("Insert one of the following numbers (ids indicating their associated jobs):");
+                                                System.out.println(stringOfAllJobIds + "\n");
+
+                                                System.out.print("Insert id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!jobIds.contains(id)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            List<String> updatableJobFields = new ArrayList<String>();
+                                            updatableJobFields.add("name");
+
+                                            while (true) {
+                                                System.out.println("Which field do you wish to update?\n");
+
+                                                String stringOfAllJobFields = String.join(", ", updatableJobFields);
+
+                                                System.out.println("Insert one of the following field names:");
+                                                System.out.println(stringOfAllJobFields + "\n");
+
+                                                System.out.print("Insert field name: ");
+                                                fieldName = scFieldName.nextLine();
+
+                                                System.out.println();
+
+                                                if (!updatableJobFields.contains(fieldName)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            System.out.print("Insert value for \"" + fieldName + "\" field: ");
+                                            fieldValue = scFieldValue.nextLine();
+
+                                            jobService.updateJobById(id, fieldName, fieldValue);
+                                            System.out.println();
+
+                                            System.out.println("Job successfully updated!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no jobs to update!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 5: {
+                                        List<City> cities = cityService.getAllCities();
+
+                                        if (!cities.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which city do you wish to update?\n");
+
+                                                List<Integer> cityIds = cities.stream().
+                                                        map(City::getIdCity).toList();
+                                                List<String> cityIdsToStrings = cityIds.stream().
+                                                        map(String::valueOf).toList();
+                                                String stringOfAllCityIds = cityIdsToStrings.stream().
+                                                        map(String::valueOf).
+                                                        collect(Collectors.joining(", "));
+
+                                                System.out.println("Insert one of the following numbers (ids indicating their associated cities):");
+                                                System.out.println(stringOfAllCityIds + "\n");
+
+                                                System.out.print("Insert id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!cityIds.contains(id)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            List<String> updatableCityFields = new ArrayList<String>();
+                                            updatableCityFields.add("name");
+
+                                            while (true) {
+                                                System.out.println("Which field do you wish to update?\n");
+
+                                                String stringOfAllCityFields = String.join(", ", updatableCityFields);
+
+                                                System.out.println("Insert one of the following field names:");
+                                                System.out.println(stringOfAllCityFields + "\n");
+
+                                                System.out.print("Insert field name: ");
+                                                fieldName = scFieldName.nextLine();
+
+                                                System.out.println();
+
+                                                if (!updatableCityFields.contains(fieldName)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            System.out.print("Insert value for \"" + fieldName + "\" field: ");
+                                            fieldValue = scFieldValue.nextLine();
+
+                                            cityService.updateCityById(id, fieldName, fieldValue);
+                                            System.out.println();
+
+                                            System.out.println("City successfully updated!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no cities to update!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                    case 6: {
+                                        List<ServiceAvailability> servicesAvailabilities = serviceAvailabilityService.getAllServicesAvailabilities();
+
+                                        if (!servicesAvailabilities.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which service availability do you wish to update?\n");
+
+                                                List<Integer> servicesAvailabilitiesServiceIds = servicesAvailabilities.stream().
+                                                        map(ServiceAvailability::getIdService).toList();
+                                                List<Integer> servicesAvailabilitiesCityIds = servicesAvailabilities.stream().
+                                                        map(ServiceAvailability::getIdCity).toList();
+                                                String servicesAvailabilitiesToString = "";
+                                                for (int i = 0; i < servicesAvailabilitiesCityIds.size(); ++i) {
+                                                    servicesAvailabilitiesToString += "(" + servicesAvailabilitiesServiceIds.get(i) + ", " + servicesAvailabilitiesCityIds.get(i) + ") ";
+                                                }
+
+                                                System.out.println("Insert one of the following tuple of numbers (service ids and city ids indicating their associated service availabilities):");
+                                                System.out.println(servicesAvailabilitiesToString + "\n");
+
+                                                System.out.print("Insert service id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+                                                System.out.print("Insert city id: ");
+                                                id2 = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!servicesAvailabilitiesServiceIds.contains(id) || !servicesAvailabilitiesCityIds.contains(id2)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            List<String> updatableServiceAvailabilityFields = new ArrayList<String>();
+                                            updatableServiceAvailabilityFields.add("idService");
+                                            updatableServiceAvailabilityFields.add("idCity");
+
+                                            while (true) {
+                                                System.out.println("Which field do you wish to update?\n");
+
+                                                String stringOfAllServiceAvailabilityFields = String.join(", ", updatableServiceAvailabilityFields);
+
+                                                System.out.println("Insert one of the following field names:");
+                                                System.out.println(stringOfAllServiceAvailabilityFields + "\n");
+
+                                                System.out.print("Insert field name: ");
+                                                fieldName = scFieldName.nextLine();
+
+                                                System.out.println();
+
+                                                if (!updatableServiceAvailabilityFields.contains(fieldName)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    clrscr();
+                                                    break;
+                                                }
+                                            }
+
+                                            System.out.print("Insert value for \"" + fieldName + "\" field: ");
+                                            fieldValue = scFieldValue.nextLine();
+
+                                            serviceAvailabilityService.updateServiceAvailabilityByServiceIdAndCityId(id, id2, fieldName, Integer.parseInt(fieldValue));
+                                            System.out.println();
+
+                                            System.out.println("Service availability successfully updated!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no service availabilities to update!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+
+                    break;
+                }
+                case 8: {
+                    Scanner scId = new Scanner(System.in);
+                    Integer id;
+                    Integer id2;
+
+                    while (true) {
+                        System.out.println("Go back - 0\n");
+
+                        System.out.println("Remove user - 1");
+                        System.out.println("Remove service - 2");
+                        System.out.println("Remove buyer utility - 3");
+                        System.out.println("Remove job - 4");
+                        System.out.println("Remove city - 5");
+                        System.out.println("Remove service availability - 6\n");
+
+                        System.out.print("Choose option: ");
+                        option = Integer.parseInt(sc.nextLine());
+                        clrscr();
+
+                        if ((option < 0) || (option > 6)) {
+                            System.out.println("Wrong input!");
+                            try {
+                                Thread.sleep(2000);
+                            } catch (InterruptedException e) {
+                                System.out.println(e.getClass() + " " + e.getMessage());
+                            }
+                            clrscr();
+                        } else {
+                            if (option != 0) {
+                                switch (option) {
+                                    case 1: {
+                                        List<User> users = userService.getAllUsers();
 
                                         if (!users.isEmpty()) {
                                             while (true) {
@@ -1418,7 +1961,7 @@ public class Main {
                                         break;
                                     }
                                     case 2: {
-                                        List<Service> services = serviceService.getServices();
+                                        List<Service> services = serviceService.getAllServices();
 
                                         if (!services.isEmpty()) {
                                             while (true) {
@@ -1475,14 +2018,14 @@ public class Main {
                                         break;
                                     }
                                     case 3: {
-                                        List<BuyerUtility> buyerUtilities = buyerUtilityService.getBuyerUtilities();
+                                        List<BuyerUtility> buyersUtilities = buyerUtilityService.getAllBuyersUtilities();
 
-                                        if (!buyerUtilities.isEmpty()) {
+                                        if (!buyersUtilities.isEmpty()) {
                                             while (true) {
                                                 System.out.println("Which buyer utility do you wish to remove?\n");
 
-                                                List<Integer> utilityIds = buyerUtilities.stream().
-                                                        map(BuyerUtility::getIdUtility).toList();
+                                                List<Integer> utilityIds = buyersUtilities.stream().
+                                                        map(BuyerUtility::getIdUtility).distinct().toList();
                                                 List<String> utilityIdsToStrings = utilityIds.stream().
                                                         map(String::valueOf).toList();
                                                 String stringOfAllUtilityIds = utilityIdsToStrings.stream().
@@ -1532,64 +2075,7 @@ public class Main {
                                         break;
                                     }
                                     case 4: {
-                                        List<Language> languages = languageService.getLanguages();
-
-                                        if (!languages.isEmpty()) {
-                                            while (true) {
-                                                System.out.println("Which language do you wish to remove?\n");
-
-                                                List<Integer> languageIds = languages.stream().
-                                                        map(Language::getIdLanguage).toList();
-                                                List<String> languageIdsToStrings = languageIds.stream().
-                                                        map(String::valueOf).toList();
-                                                String stringOfAllLanguageIds = languageIdsToStrings.stream().
-                                                        map(String::valueOf).
-                                                        collect(Collectors.joining(", "));
-
-                                                System.out.println("Insert one of the following numbers (ids indicating their associated languages):");
-                                                System.out.println(stringOfAllLanguageIds + "\n");
-
-                                                System.out.print("Insert id: ");
-                                                id = Integer.parseInt(scId.nextLine());
-
-                                                System.out.println();
-
-                                                if (!languageIds.contains(id)) {
-                                                    System.out.println("Wrong input!");
-                                                    try {
-                                                        Thread.sleep(2000);
-                                                    } catch (InterruptedException e) {
-                                                        System.out.println(e.getClass() + " " + e.getMessage());
-                                                    }
-                                                    clrscr();
-                                                } else {
-                                                    break;
-                                                }
-                                            }
-
-                                            languageService.deleteLanguageById(id);
-
-                                            System.out.println("Language successfully removed!");
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        } else {
-                                            System.out.println("There are no languages to remove!");
-                                            try {
-                                                Thread.sleep(2000);
-                                            } catch (InterruptedException e) {
-                                                System.out.println(e.getClass() + " " + e.getMessage());
-                                            }
-                                            clrscr();
-                                        }
-
-                                        break;
-                                    }
-                                    case 5: {
-                                        List<Job> jobs = jobService.getJobs();
+                                        List<Job> jobs = jobService.getAllJobs();
 
                                         if (!jobs.isEmpty()) {
                                             while (true) {
@@ -1645,8 +2131,8 @@ public class Main {
 
                                         break;
                                     }
-                                    case 6: {
-                                        List<City> cities = cityService.getCities();
+                                    case 5: {
+                                        List<City> cities = cityService.getAllCities();
 
                                         if (!cities.isEmpty()) {
                                             while (true) {
@@ -1702,6 +2188,66 @@ public class Main {
 
                                         break;
                                     }
+                                    case 6: {
+                                        List<ServiceAvailability> servicesAvailabilities = serviceAvailabilityService.getAllServicesAvailabilities();
+
+                                        if (!servicesAvailabilities.isEmpty()) {
+                                            while (true) {
+                                                System.out.println("Which service availability do you wish to remove?\n");
+
+                                                List<Integer> servicesAvailabilitiesServiceIds = servicesAvailabilities.stream().
+                                                        map(ServiceAvailability::getIdService).toList();
+                                                List<Integer> servicesAvailabilitiesCityIds = servicesAvailabilities.stream().
+                                                        map(ServiceAvailability::getIdCity).toList();
+                                                String servicesAvailabilitiesToString = "";
+                                                for (int i = 0; i < servicesAvailabilitiesCityIds.size(); ++i) {
+                                                    servicesAvailabilitiesToString += "(" + servicesAvailabilitiesServiceIds.get(i) + ", " + servicesAvailabilitiesCityIds.get(i) + ") ";
+                                                }
+
+                                                System.out.println("Insert one of the following numbers (service ids indicating their associated service availabilities):");
+                                                System.out.println(servicesAvailabilitiesToString + "\n");
+
+                                                System.out.print("Insert service id: ");
+                                                id = Integer.parseInt(scId.nextLine());
+                                                System.out.print("Insert city id: ");
+                                                id2 = Integer.parseInt(scId.nextLine());
+
+                                                System.out.println();
+
+                                                if (!servicesAvailabilitiesServiceIds.contains(id) || !servicesAvailabilitiesCityIds.contains(id2)) {
+                                                    System.out.println("Wrong input!");
+                                                    try {
+                                                        Thread.sleep(2000);
+                                                    } catch (InterruptedException e) {
+                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                    }
+                                                    clrscr();
+                                                } else {
+                                                    break;
+                                                }
+                                            }
+
+                                            serviceAvailabilityService.deleteServiceAvailabilityByServiceIdAndCityId(id, id2);
+
+                                            System.out.println("Service availability successfully removed!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        } else {
+                                            System.out.println("There are no service availabilities to remove!");
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (InterruptedException e) {
+                                                System.out.println(e.getClass() + " " + e.getMessage());
+                                            }
+                                            clrscr();
+                                        }
+
+                                        break;
+                                    }
                                 }
                             } else {
                                 break;
@@ -1711,16 +2257,16 @@ public class Main {
 
                     break;
                 }
-                case 8: {
+                case 9: {
                     while (true) {
                         System.out.println("Go back - 0\n");
 
                         System.out.println("User specific operations - 1");
                         System.out.println("Service specific operations - 2");
                         System.out.println("Buyer utility specific operations - 3");
-                        System.out.println("Language specific operations - 4");
-                        System.out.println("Job specific operations - 5");
-                        System.out.println("City specific operations - 6\n");
+                        System.out.println("Job specific operations - 4");
+                        System.out.println("City specific operations - 5");
+                        System.out.println("Service availability specific operations - 6\n");
 
                         System.out.print("Choose option: ");
                         option = Integer.parseInt(sc.nextLine());
@@ -1764,9 +2310,7 @@ public class Main {
                                                             if (!users.isEmpty()) {
                                                                 System.out.println("All of the stored users, sorted by username:\n");
 
-                                                                for (User user : users) {
-                                                                    System.out.println(user);
-                                                                }
+                                                                users.forEach( (user) -> { System.out.println(user); } );
 
                                                                 System.out.println();
                                                                 pressEnterToContinue();
@@ -1802,11 +2346,13 @@ public class Main {
                                         while (true) {
                                             System.out.println("Go back - 0\n");
 
+                                            System.out.println("Filter services by a specific field - 1\n");
+
                                             System.out.print("Choose option: ");
                                             option = Integer.parseInt(sc.nextLine());
                                             clrscr();
 
-                                            if ((option < 0) || (option > 0)) {
+                                            if ((option < 0) || (option > 1)) {
                                                 System.out.println("Wrong input!");
                                                 try {
                                                     Thread.sleep(2000);
@@ -1816,7 +2362,164 @@ public class Main {
                                                 clrscr();
                                             } else {
                                                 if (option != 0) {
+                                                    switch (option) {
+                                                        case 1: {
+                                                            Scanner scInfo = new Scanner(System.in);
+                                                            String info;
 
+                                                            while (true) {
+                                                                System.out.println("Go back - 0\n");
+
+                                                                System.out.println("Filter services by seller username - 1");
+                                                                System.out.println("Filter services by job name - 2");
+                                                                System.out.println("Filter services by price range - 3\n");
+
+                                                                System.out.print("Choose option: ");
+                                                                option = Integer.parseInt(sc.nextLine());
+                                                                clrscr();
+
+                                                                if ((option < 0) || (option > 3)) {
+                                                                    System.out.println("Wrong input!");
+                                                                    try {
+                                                                        Thread.sleep(2000);
+                                                                    } catch (InterruptedException e) {
+                                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                                    }
+                                                                    clrscr();
+                                                                }
+                                                                else if (option != 0) {
+                                                                    switch (option) {
+                                                                        case 1: {
+                                                                            System.out.print("Insert seller username: ");
+                                                                            info = scInfo.nextLine();
+
+                                                                            System.out.println();
+
+                                                                            if (userService.getUserByUsername(info) == null) {
+                                                                                System.out.println("There is no seller with the specified username!");
+
+                                                                                System.out.println();
+                                                                                pressEnterToContinue();
+
+                                                                                clrscr();
+                                                                                break;
+                                                                            } else {
+                                                                                List<Service> services = serviceService.filterServicesBySellerUsername(info);
+
+                                                                                if (!services.isEmpty()) {
+                                                                                    System.out.println("All of the stored services, filtered by the seller username \"" + info + "\":\n");
+
+                                                                                    services.forEach( (service) -> { System.out.println(service); } );
+
+                                                                                    System.out.println();
+                                                                                    pressEnterToContinue();
+
+                                                                                    clrscr();
+                                                                                } else {
+                                                                                    System.out.println("There are no services to print!");
+                                                                                    try {
+                                                                                        Thread.sleep(2000);
+                                                                                    } catch (InterruptedException e) {
+                                                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                                                    }
+                                                                                    clrscr();
+                                                                                }
+
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        case 2: {
+                                                                            System.out.print("Insert job name: ");
+                                                                            info = scInfo.nextLine();
+
+                                                                            System.out.println();
+
+                                                                            if (jobService.getJobByName(info) == null) {
+                                                                                System.out.println("There is no job with the specified name!");
+
+                                                                                System.out.println();
+                                                                                pressEnterToContinue();
+
+                                                                                clrscr();
+                                                                                break;
+                                                                            } else {
+                                                                                List<Service> services = serviceService.filterServicesByJobName(info);
+
+                                                                                if (!services.isEmpty()) {
+                                                                                    System.out.println("All of the stored services, filtered by the job name \"" + info + "\":\n");
+
+                                                                                    services.forEach( (service) -> { System.out.println(service); } );
+
+                                                                                    System.out.println();
+                                                                                    pressEnterToContinue();
+
+                                                                                    clrscr();
+                                                                                } else {
+                                                                                    System.out.println("There are no services to print!");
+                                                                                    try {
+                                                                                        Thread.sleep(2000);
+                                                                                    } catch (InterruptedException e) {
+                                                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                                                    }
+                                                                                    clrscr();
+                                                                                }
+
+                                                                                break;
+                                                                            }
+                                                                        }
+                                                                        case 3: {
+                                                                            String[] priceRange;
+
+                                                                            while (true) {
+                                                                                System.out.print("Insert price range (of form: x - y): ");
+                                                                                info = scInfo.nextLine();
+                                                                                priceRange = info.split(" ");
+
+                                                                                System.out.println();
+
+                                                                                if (priceRange.length != 3) {
+                                                                                    System.out.println("Invalid price range format!");
+                                                                                    try {
+                                                                                        Thread.sleep(2000);
+                                                                                    } catch (InterruptedException e) {
+                                                                                        System.out.println(e.getClass() + " " + e.getMessage());
+                                                                                    }
+                                                                                    clrscr();
+                                                                                } else {
+                                                                                    break;
+                                                                                }
+                                                                            }
+
+                                                                            List<Service> services = serviceService.filterServicesByPriceRange(Double.parseDouble(priceRange[0]), Double.parseDouble(priceRange[2]));
+
+                                                                            if (!services.isEmpty()) {
+                                                                                System.out.println("All of the stored services, filtered by price range (" + info + "):\n");
+
+                                                                                services.forEach( (service) -> { System.out.println(service); } );
+
+                                                                                System.out.println();
+                                                                                pressEnterToContinue();
+
+                                                                                clrscr();
+                                                                            } else {
+                                                                                System.out.println("There are no services to print!");
+                                                                                try {
+                                                                                    Thread.sleep(2000);
+                                                                                } catch (InterruptedException e) {
+                                                                                    System.out.println(e.getClass() + " " + e.getMessage());
+                                                                                }
+                                                                                clrscr();
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                } else {
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            break;
+                                                        }
+                                                    }
                                                 } else {
                                                     break;
                                                 }
@@ -1942,7 +2645,7 @@ public class Main {
 
                     break;
                 }
-                case 9: {
+                case 10: {
                     continueNavigation = false;
                     System.out.println("Goodbye!");
                     try {

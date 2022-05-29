@@ -1,29 +1,31 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.sql.Date;
 
-public final class BuyerUtility {
+public class BuyerUtility {
     private Integer idUtility;
     private static Integer newIdUtility = 1;
+    private Integer idService;
+    private Integer idBuyer;
     private String type;
-    private List<Service> services = new ArrayList<>();
-    private Buyer buyer;
-    private List<Date> servicesAddedDates = new ArrayList<>();
+    private Date serviceAddedDate;
 
-    public BuyerUtility(String type, Buyer buyer) {
+    public BuyerUtility(Integer idService, Integer idBuyer, String type, Date serviceAddedDate) {
         this.idUtility = BuyerUtility.newIdUtility;
+        this.idService = idService;
+        this.idBuyer = idBuyer;
         this.type = type;
-        this.buyer = buyer;
+        this.serviceAddedDate = serviceAddedDate;
 
         ++newIdUtility;
     }
 
-    public BuyerUtility(Integer idUtility, String type, Buyer buyer) {
+    public BuyerUtility(Integer idUtility, Integer idService, Integer idBuyer, String type, Date serviceAddedDate) {
         this.idUtility = idUtility;
+        this.idService = idService;
+        this.idBuyer = idBuyer;
         this.type = type;
-        this.buyer = buyer;
+        this.serviceAddedDate = serviceAddedDate;
 
         if (idUtility >= newIdUtility) {
             newIdUtility = idUtility + 1;
@@ -34,42 +36,58 @@ public final class BuyerUtility {
         return idUtility;
     }
 
+    public void setIdUtility(Integer idUtility) {
+        this.idUtility = idUtility;
+    }
+
     public static Integer getNewIdUtility() {
         return newIdUtility;
+    }
+
+    public static void setNewIdUtility(Integer newIdUtility) {
+        BuyerUtility.newIdUtility = newIdUtility;
+    }
+
+    public Integer getIdService() {
+        return idService;
+    }
+
+    public void setIdService(Integer idService) {
+        this.idService = idService;
+    }
+
+    public Integer getIdBuyer() {
+        return idBuyer;
+    }
+
+    public void setIdBuyer(Integer idBuyer) {
+        this.idBuyer = idBuyer;
     }
 
     public String getType() {
         return type;
     }
 
-    public List<Service> getServices() {
-        return services;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public void setServices(List<Service> services) {
-        this.services = services;
+    public Date getServiceAddedDate() {
+        return serviceAddedDate;
     }
 
-    public Buyer getBuyer() {
-        return buyer;
-    }
-
-    public List<Date> getServicesAddedDates() {
-        return servicesAddedDates;
-    }
-
-    public void setServicesAddedDates(List<Date> servicesAddedDates) {
-        this.servicesAddedDates = servicesAddedDates;
+    public void setServiceAddedDate(Date serviceAddedDate) {
+        this.serviceAddedDate = serviceAddedDate;
     }
 
     @Override
     public String toString() {
         return "BuyerUtility{" +
                 "idUtility=" + idUtility +
+                ", idService=" + idService +
+                ", idBuyer=" + idBuyer +
                 ", type='" + type + '\'' +
-                ", services=" + services +
-                ", buyer=" + buyer +
-                ", servicesAddedDates=" + servicesAddedDates +
+                ", serviceAddedDate=" + serviceAddedDate +
                 '}';
     }
 }

@@ -1,30 +1,32 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public final class Service {
     private Integer idService;
     private static Integer newIdService = 1;
-    private Seller seller;
+    private Integer idSeller;
+    private Integer idJob;
     private String description;
-    private List<Job> jobsRequired = new ArrayList<>();
-    private List<City> eligibleCities = new ArrayList<>();
+    private Double price;
+//    private List<City> eligibleCities = new ArrayList<>();
     private String workSchedule;
 
-    public Service(Seller seller, String description, String workSchedule) {
+    public Service(Integer idSeller, Integer idJob, String description, Double price, String workSchedule) {
         this.idService = Service.newIdService;
-        this.seller = seller;
+        this.idSeller = idSeller;
+        this.idJob = idJob;
         this.description = description;
+        this.price = price;
         this.workSchedule = workSchedule;
 
         ++newIdService;
     }
 
-    public Service(Integer idService, Seller seller, String description, String workSchedule) {
+    public Service(Integer idService, Integer idSeller, Integer idJob, String description, Double price, String workSchedule) {
         this.idService = idService;
-        this.seller = seller;
+        this.idSeller = idSeller;
+        this.idJob = idJob;
         this.description = description;
+        this.price = price;
         this.workSchedule = workSchedule;
 
         if (idService >= newIdService) {
@@ -36,12 +38,32 @@ public final class Service {
         return idService;
     }
 
+    public void setIdService(Integer idService) {
+        this.idService = idService;
+    }
+
     public static Integer getNewIdService() {
         return newIdService;
     }
 
-    public Seller getSeller() {
-        return seller;
+    public static void setNewIdService(Integer newIdService) {
+        Service.newIdService = newIdService;
+    }
+
+    public Integer getIdSeller() {
+        return idSeller;
+    }
+
+    public void setIdSeller(Integer idSeller) {
+        this.idSeller = idSeller;
+    }
+
+    public Integer getIdJob() {
+        return idJob;
+    }
+
+    public void setIdJob(Integer idJob) {
+        this.idJob = idJob;
     }
 
     public String getDescription() {
@@ -52,20 +74,12 @@ public final class Service {
         this.description = description;
     }
 
-    public List<Job> getJobsRequired() {
-        return jobsRequired;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setJobsRequired(List<Job> jobsRequired) {
-        this.jobsRequired = jobsRequired;
-    }
-
-    public List<City> getEligibleCities() {
-        return eligibleCities;
-    }
-
-    public void setEligibleCities(List<City> eligibleCities) {
-        this.eligibleCities = eligibleCities;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public String getWorkSchedule() {
@@ -80,10 +94,10 @@ public final class Service {
     public String toString() {
         return "Service{" +
                 "idService=" + idService +
-                ", seller=" + seller +
+                ", idSeller=" + idSeller +
+                ", idJob=" + idJob +
                 ", description='" + description + '\'' +
-                ", jobsRequired=" + jobsRequired +
-                ", eligibleCities=" + eligibleCities +
+                ", price=" + price +
                 ", workSchedule='" + workSchedule + '\'' +
                 '}';
     }

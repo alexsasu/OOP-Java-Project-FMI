@@ -1,8 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class User {
     private Integer idUser;
     private static Integer newIdUser = 1;
@@ -12,9 +9,7 @@ public abstract class User {
     private String username;
     private String email;
     private String password;
-    private List<Language> languages = new ArrayList<>();
-
-    User() { }
+//    private List<Language> languages = new ArrayList<>();
 
     public User(String type, String firstName, String lastName, String username, String email, String password) {
         this.idUser = User.newIdUser;
@@ -46,12 +41,24 @@ public abstract class User {
         return idUser;
     }
 
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
     public static Integer getNewIdUser() {
         return newIdUser;
     }
 
+    public static void setNewIdUser(Integer newIdUser) {
+        User.newIdUser = newIdUser;
+    }
+
     public String getType() {
         return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getFirstName() {
@@ -82,6 +89,10 @@ public abstract class User {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -90,25 +101,24 @@ public abstract class User {
         this.password = password;
     }
 
-    public List<Language> getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(List<Language> languages) {
-        this.languages = languages;
-    }
+    //    public List<Language> getLanguages() {
+//        return languages;
+//    }
+//
+//    public void setLanguages(List<Language> languages) {
+//        this.languages = languages;
+//    }
 
     @Override
     public String toString() {
         return "User{" +
                 "idUser=" + idUser +
-                ", type=" + type +
+                ", type='" + type + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", languages=" + languages +
                 '}';
     }
 }
